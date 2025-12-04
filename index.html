@@ -379,65 +379,111 @@
             font-size: 1.2rem;
         }
 
-        /* ---------- PROJECTS ---------- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+        /* ---------- PROJECTS (Next-Level Style) ---------- */
+.projects {
+    position: relative;
+    overflow: hidden;
+}
 
-        .project-card {
-            background: var(--glass-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            transition: all .3s ease;
-            backdrop-filter: blur(10px);
-        }
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    perspective: 1000px;
+}
 
-        .project-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--neon-glow);
-        }
+.project-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s ease;
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    transform: translateY(0);
+}
 
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform .3s ease;
-        }
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(218,165,32,0.2), rgba(30,144,255,0.2));
+    opacity: 0;
+    transition: opacity .4s ease;
+}
 
-        .project-card:hover img {
-            transform: scale(1.1);
-        }
+.project-card:hover::before {
+    opacity: 1;
+}
 
-        .project-info {
-            padding: 1.5rem;
-        }
+.project-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    filter: brightness(0.8);
+    transition: all 0.6s ease;
+}
 
-        .project-info h3 {
-            margin-bottom: .5rem;
-        }
+.project-card:hover img {
+    transform: scale(1.2);
+    filter: brightness(1);
+}
 
-        .tags {
-            display: flex;
-            gap: .5rem;
-            margin: 1rem 0;
-        }
+.project-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10,10,10,0.8);
+    padding: 1.5rem;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
 
-        .tags span {
-            background: var(--primary-color);
-            color: var(--bg-dark);
-            padding: .3rem .6rem;
-            border-radius: 15px;
-            font-size: .8rem;
-            font-weight: 600;
-        }
+.project-card:hover .project-info {
+    transform: translateY(0);
+}
 
-        .project-buttons {
-            display: flex;
-            gap: 1rem;
-        }
+.project-info h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: .6rem;
+    letter-spacing: 1px;
+}
+
+.project-info p {
+    color: var(--text-secondary);
+    font-size: .95rem;
+    line-height: 1.4;
+}
+
+.project-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 0 30px var(--primary-color);
+}
+
+/* Neon outline pulse */
+.project-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .4s ease;
+}
+
+.project-card:hover::after {
+    opacity: 1;
+}
+
+.project-card.fade-in.visible {
+    animation: floatCard 6s ease-in-out infinite;
+}
 
         .btn-small {
             padding: .5rem 1rem;
@@ -1088,12 +1134,12 @@
         <div class="container">
             <h2 class="section-title fade-in">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card fade-in"><img src="1.jpeg" alt="Project 1"><div class="project-info"><h3>Responsive E-Commerce</h3><p>Fully animated shop with cart functionality and smooth checkout. Integrated Stripe for payments.</p><div class="tags"><span>React</span><span>CSS</span><span>JS</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
-                <div class="project-card fade-in"><img src="2.jpeg" alt="Project 2"><div class="project-info"><h3>Real-Time Dashboard</h3><p>Interactive data viz with neon charts and API integration. Uses WebSockets for live updates.</p><div class="tags"><span>JS</span><span>Node</span><span>Charts.js</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
-                <div class="project-card fade-in"><img src="3.jpeg" alt="Project 3"><div class="project-info"><h3>Animated Portfolio</h3><p>This very site – cyber-tech theme with GSAP-like effects and particle animations.</p><div class="tags"><span>HTML</span><span>CSS</span><span>Animations</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
-                <div class="project-card fade-in"><img src="4.jpeg" alt="Project 4"><div class="project-info"><h3>AI Code Assistant</h3><p>A web tool that suggests code snippets using OpenAI API, with syntax highlighting.</p><div class="tags"><span>React</span><span>Node</span><span>Markdown</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
-                <div class="project-card fade-in"><img src="5.jpeg" alt="Project 5"><div class="project-info"><h3>Web Game Hub</h3><p>Collection of JS games with parallax scrolling and effects. Includes Tic-Tac-Toe and Snake.</p><div class="tags"><span>JS</span><span>CSS</span><span>Canvas</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
-                <div class="project-card fade-in"><img src="6.jpeg" alt="Project 6"><div class="project-info"><h3>Dynamic Blog</h3><p>Markdown-powered blog with search and dark mode toggle. Features comment system.</p><div class="tags"><span>React</span><span>Node</span><span>Markdown</span></div><div class="project-buttons"><a href="#" class="btn btn-small btn-primary">Live Demo</a><a href="#" class="btn btn-small btn-secondary">Source Code</a></div></div></div>
+                <div class="project-card fade-in"><img src="1.jpeg" alt="Project 1"><div class="project-info"><h3>Responsive E-Commerce</h3><p>Fully animated shop with cart functionality and smooth checkout. Integrated Stripe for payments.</p></div></div>
+                <div class="project-card fade-in"><img src="2.jpeg" alt="Project 2"><div class="project-info"><h3>Real-Time Dashboard</h3><p>Interactive data viz with neon charts and API integration. Uses WebSockets for live updates.</p></div></div>
+                <div class="project-card fade-in"><img src="3.jpeg" alt="Project 3"><div class="project-info"><h3>Animated Portfolio</h3><p>This very site – cyber-tech theme with GSAP-like effects and particle animations.</p></div></div>
+                <div class="project-card fade-in"><img src="4.jpeg" alt="Project 4"><div class="project-info"><h3>AI Code Assistant</h3><p>A web tool that suggests code snippets using OpenAI API, with syntax highlighting.</p></div></div>
+                <div class="project-card fade-in"><img src="5.jpeg" alt="Project 5"><div class="project-info"><h3>Web Game Hub</h3><p>Collection of JS games with parallax scrolling and effects. Includes Tic-Tac-Toe and Snake.</p></div></div>
+                <div class="project-card fade-in"><img src="6.jpeg" alt="Project 6"><div class="project-info"><h3>Dynamic Blog</h3><p>Markdown-powered blog with search and dark mode toggle. Features comment system.</p></div></div>
             </div>
         </div>
     </section>
@@ -1117,8 +1163,8 @@
             <div class="timeline">
                 <div class="timeline-item"><div class="timeline-content fade-in"><h3>Started Coding Journey</h3><p>Age 10 (2021) - Self-taught basics of HTML & CSS through free resources like freeCodeCamp.</p></div></div>
                 <div class="timeline-item"><div class="timeline-content fade-in"><h3>First Live Project</h3><p>Age 12 (2023) - Launched personal gaming site with custom animations. Gained 1K+ visitors in first month.</p></div></div>
-                <div class="timeline-item"><div class="timeline-content fade-in"><h3>Freelance Prodigy</h3><p>Age 14 (2025) - Delivered 5+ client projects, earning rave reviews and $2K+ in earnings.</p><div class="badges"><span class="badge">GitHub Star</span><span class="badge">Hackathon Winner</span></div></div></div>
-                <div class="timeline-item"><div class="timeline-content fade-in"><h3>Certifications Earned</h3><p>Nov 2025 - Completed Google UX Design Certificate and freeCodeCamp Responsive Web Design.</p><div class="badges"><span class="badge">Google Certified</span><span class="badge">freeCodeCamp</span></div></div></div>
+                <div class="timeline-item"><div class="timeline-content fade-in"><h3>Freelance Prodigy</h3><p>Age 14 (2025) - Delivered 5+ client projects, earning rave reviews and $2K+ in earnings.</p><div class="badges"></div></div></div>
+                <div class="timeline-item"><div class="timeline-content fade-in"><h3>Certifications Earned</h3><p>Nov 2025 - Completed Google UX Design Certificate and freeCodeCamp Responsive Web Design.</p><div class="badges"></div></div></div>
             </div>
         </div>
     </section>
@@ -1188,19 +1234,6 @@
                     <div class="faq-question">Do you offer revisions?<i class="fas fa-chevron-down"></i></div>
                     <div class="faq-answer">Yes – up to **3 free revisions** per milestone. Additional changes are billed at an hourly rate.</div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. AWARDS & CERTIFICATIONS -->
-    <section id="awards" class="awards">
-        <div class="container">
-            <h2 class="section-title fade-in">Awards & Certifications</h2>
-            <div class="awards-grid">
-                <div class="award-card fade-in"><i class="fas fa-trophy"></i><h3>Hackathon Winner</h3><p>National Web Dev Hackathon 2024</p><div class="year">2024</div></div>
-                <div class="award-card fade-in"><i class="fas fa-medal"></i><h3>Google UX Design</h3><p>Professional Certificate</p><div class="year">Nov 2025</div></div>
-                <div class="award-card fade-in"><i class="fas fa-certificate"></i><h3>freeCodeCamp</h3><p>Responsive Web Design</p><div class="year">2023</div></div>
-                <div class="award-card fade-in"><i class="fas fa-star"></i><h3>GitHub Star</h3><p>Top 1% Contributor (2025)</p><div class="year">2025</div></div>
             </div>
         </div>
     </section>
