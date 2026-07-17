@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aabelvinod.github.io/portfolio/sitemap.xml
